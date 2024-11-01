@@ -1,6 +1,5 @@
 const app = require("./src/app");
-
-const PORT = process.env.PORT || 5000;
+const { PORT } = require("./src/config/constants");
 
 // Iniciar el servidor
 app.listen(PORT, () => {

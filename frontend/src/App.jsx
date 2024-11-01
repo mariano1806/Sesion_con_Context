@@ -1,29 +1,49 @@
 import React from "react";
-import { SessionProvider } from "./context/SesionProvider.jsx"; // Verifica la ruta y la implementación
-import { useSession } from "./hooks/UseSession.jsx"; // Asegúrate de que este hook esté bien definido
-import { Login } from "./components/login.jsx"; // Asegúrate de que este componente existe
-import { Home } from "./components/home.jsx"; // Asegúrate de que este componente existe
+import { SessionProvider } from "./context/SesionProvider";
+import { useSession } from "./hooks/UseSession";
+import { Login } from "./components/login";
+import { Home } from "./components/home";
 
 const AppContent = () => {
-  const { user, isLoading } = useSession(); // Asegúrate de que useSession funcione correctamente
+  const { user, isLoading } = useSession();
 
-  // Muestra un spinner mientras se carga la sesión
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-indigo-500"></div>
+        <div className="text-gray-500 text-2xl">
+          <svg
+            className="animate-spin -ml-1 mr-3 h-10 w-10 text-indigo-500 inline-block"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              strokeWidth="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Cargando aplicación...
+        </div>
       </div>
     );
   }
 
-  // Muestra Home si el usuario está autenticado, de lo contrario muestra Login
   return user ? <Home /> : <Login />;
 };
 
 const App = () => {
   return (
     <SessionProvider>
-      <AppContent /> {/* AppContent se renderiza aquí */}
+      <AppContent />
     </SessionProvider>
   );
 };
